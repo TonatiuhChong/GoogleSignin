@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Control_del_hogar"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Control" />
+        <item
+            android:id="@+id/ReconocimientoFacial"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Acceso principal" />
+
+        <item
+            android:id="@+id/Permisos"
+            android:icon="?android:attr/actionModePasteDrawable"
+            android:title="Tareas disponibles" />
+        <item
+            android:id="@+id/Configuración"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Configuración" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/Extra1"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Compartir" />
+            <item
+                android:id="@+id/Enviar_Informe"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Enviar Informe" />
+        </menu>
+    </item>
+
+</menu>
