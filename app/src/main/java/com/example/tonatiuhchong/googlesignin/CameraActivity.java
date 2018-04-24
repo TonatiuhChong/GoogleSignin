@@ -94,7 +94,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         if(requestCode==RESULT_OK){
 
             Toast.makeText(this, "Imagen Salvada", Toast.LENGTH_SHORT).show();
-            setPic();
+
             if(requestCode==REQUEST_TAKE_PHOTO){
 
            // Bitmap bitmap=(Bitmap)data.getExtras().get("data");
@@ -115,7 +115,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         File image = new File(storageDir,imageFileName);
         mCurrentPhotoPath = image.getAbsolutePath();
         Toast.makeText(this, "Imagen Guardada en Pictures", Toast.LENGTH_SHORT).show();
+        setPic();
         return image;
+
     }
 
     private void galleryAddPic() {

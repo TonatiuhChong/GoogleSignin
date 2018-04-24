@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity  {
 
     FirebaseAuth mAuth;
     private SignInButton ingresarG;
+
     private static final int RC_SIGN_IN=1;
     private GoogleApiClient mGoogleSignInClient;
     private static final String TAG="MainActivity";
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity  {
                     String personEmail=account.getEmail();
                     String personId=account.getId();
                     Uri personPhoto=account.getPhotoUrl();
+                    Datos(personGivenName,personId,personName,personEmail,personPhoto,personFamilyName);
 
                 }
                 firebaseAuthWithGoogle(account);
@@ -103,6 +106,19 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+
+    private void Datos(String personGivenName, String personId,String personName, String personEmail,Uri personPhoto,String personFamilyName){
+        String nombre=personName;
+        String Email=personEmail;
+        String Familia=personFamilyName;
+        String Id= personId;
+        String Given=personGivenName;
+        Uri fotito=personPhoto;
+
+
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -113,7 +129,7 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -124,8 +140,12 @@ public class MainActivity extends AppCompatActivity  {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            Intent paso= new Intent(MainActivity.this,MenuActivity.class);
 
-                            startActivity(new Intent(MainActivity.this,MenuActivity.class));
+                            paso.putExtra("nombreCuenta",acct.getDisplayName());
+                            paso.putExtra("EmailC",acct.getEmail());
+                            paso.putExtra("Fotografia",acct.getPhotoUrl());
+                            startActivity(paso);
 
                         } else {
                             // If sign in fails, display a message to the user.

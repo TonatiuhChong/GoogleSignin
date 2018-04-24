@@ -1,6 +1,7 @@
 package com.example.tonatiuhchong.googlesignin;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -25,13 +27,26 @@ public class MenuActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
 
+    TextView TUsuario,TEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        TUsuario=(TextView)findViewById(R.id.NombreUsuario);
+        TEmail=(TextView)findViewById(R.id.Emailcompleto);
+
+
         mAuth= FirebaseAuth.getInstance();
+
+        Bundle datos=this.getIntent().getExtras();
+        String Nombre=datos.getString("nombreCuenta");
+        String Email=datos.getString("EmailC");
+        //Uri FotoM=datos.getString("Fotografia");
+
+        TEmail.setText(Email);
+        TUsuario.setText(Nombre);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
