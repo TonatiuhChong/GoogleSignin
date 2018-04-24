@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +29,11 @@ import com.google.firebase.auth.GoogleAuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
-    FirebaseAuth mAuth;
     private SignInButton ingresarG;
+    FirebaseAuth mAuth;
+    EditText editTextEmail, editTextPassword;
 
     private static final int RC_SIGN_IN=1;
     private GoogleApiClient mGoogleSignInClient;
@@ -43,6 +46,14 @@ public class MainActivity extends AppCompatActivity  {
 
         ingresarG=(SignInButton)findViewById(R.id.BtnSignGoogle);
         mAuth=FirebaseAuth.getInstance();
+
+        //variables de entorno
+        editTextEmail=(EditText)findViewById(R.id.EditEmail);
+        editTextPassword=(EditText)findViewById(R.id.EditPassword);
+
+        findViewById(R.id.RegisterL).setOnClickListener(this);
+        findViewById(R.id.Login).setOnClickListener(this);
+
 
 
         // Configure Google Sign In
@@ -65,16 +76,73 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
-
-
         }
 
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.Login:
+                userLogin();
+            break;
+            case R.id.RegisterL:
+                finish();
+                startActivity(new Intent(MainActivity.this,SignUpActivity.class));
+            break;
+
+        }
+    }
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleSignInClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    private void userLogin() {
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            editTextEmail.setError("Email is required");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please enter a valid email");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            editTextPassword.setError("Password is required");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        if (password.length() < 6) {
+            editTextPassword.setError("Minimum lenght of password should be 6");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if (task.isSuccessful()) {
+                    finish();
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

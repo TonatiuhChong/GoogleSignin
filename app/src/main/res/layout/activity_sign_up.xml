@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.tonatiuhchong.googlesignin.MainActivity">
+    tools:context="com.example.tonatiuhchong.googlesignin.SignUpActivity">
 
     <ImageView
         android:id="@+id/Logo"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"/>
 
     <EditText
-        android:id="@+id/EditEmail"
+        android:id="@+id/EditEmailR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
@@ -27,22 +27,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
-        android:id="@+id/EditPassword"
+        android:id="@+id/EditPasswordR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/RegisterL"
+    android:text="Confirma tu contraseña"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/EditPassword2R"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/LoginR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
-        android:id="@+id/Login"
+        android:id="@+id/RegisterR"
         android:text="Entrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/BtnSignGoogle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.google.android.gms.common.SignInButton>
 
 </LinearLayout>
